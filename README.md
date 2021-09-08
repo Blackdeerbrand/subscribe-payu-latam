@@ -1,46 +1,115 @@
-# Getting Started with Create React App
+![Final-Result](https://lh3.googleusercontent.com/oRTBuhg0gKwZ-pIamHAVrwbExgB9f51NPJKFc4UCTdFxR15uRwX0ECfnvHn7CaKHkwwQHTiYF1j8b4s3BsnXnHufk4YpiPzVo93XGDCI8ethesye2dIQJialmN0svQ7zquVvqxMOQ9r-VoVIC9qPy3swloG2r2D_RzX1kTJS98LUeyHzFZW09avzmKYVrHuuf0UtwRGE1kgEwMo-iil_3aFH_8VYAqCNMM_eu9WmseiNXYEFCkXX0gzzhgAR3wLLkTvb3ObZjU-NUe2-_XgHtX3zXPMH6zo78JXccuxuTpeajrUksWqJcDmwl5GBt8hRTe2-YD0mSVSzX4Ubk0qGLQYuMcj7SvPVePCvam_5AmoCHKIHemR5GW9LYHISYcqRoUJlhtPJv7NNAlWFVrwU1cMe62U1rGHx-tGm3bHvk7iW2Aiw4IpVrayn5VHp-mZ-ftDXrrrQOqx7ogSJ4OHM603T-yK7p9oZ_jM9haYGjn0CXjPQn4CwQczdsCzjXojQISawTCUskKzBto-mXaBcktR5qeVovl_pH6jnG8d15R7J_pQIg7Y7e6Z3pUv_Bl2wmh0JY0Tg0bBUAQO1BALshE81oUEeRJd4ZgQp2P3IBvS_p8Qep2YkUJHZutI01nYsmtrWTj3Cerb_vSXLxBfet4hLULod934GhSXSKYEQOKOPX-LE98GWgUFvji0IiEphMsGuRjDxFua-RQyuIc5a65xcZQ=w1322-h880-no?authuser=0)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Subscription PayU LATAM
 
-## Available Scripts
+You can see the demo here: https://task-manager-react-a1xx50vf9-blackdeerbrand.vercel.app/ 
 
-In the project directory, you can run:
+### IMPORTANT
 
-### `npm start`
+This version of the pay form for subscription made for PayU only works in Colombia and Mexico
+Other countries have little variations about the data that you must give to PayU
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+See more [here](http://developers.payulatam.com/es/api/recurring_payments.html)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+As a requirement, you must have created an account in PayU or called [Administrative Module](https://secure.payulatam.com/online_account/create_account.zul)
 
-### `npm test`
+This is made through API implementation. See more [here](http://developers.payulatam.com/es/api/recurring_payments.html)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Build with
 
-### `npm run build`
+- [React](https://reactjs.org/)
+- [Git](https://git-scm.com)
+- [Material Icons](https://material-ui.com/es/components/material-icons/)
+- [Material UI](https://material-ui.com/es/)
+- [Material Lab](https://material-ui.com/es/components/about-the-lab/)
+- [Typescript](https://www.typescriptlang.org/)
+- [React-Hook-Form](https://react-hook-form.com/)
+- [Axios](https://github.com/axios/axios)
+- [md5](https://www.npmjs.com/package/md5)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Last actualization : September 8, 2021
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+SUSCRIPTION LATAM
 
-### `npm run eject`
+Hi developer, here are we going to explain how all the form of suscription from PayU ("Pagos Recurrentes" in Spanish)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+!IMPORTANT => Before all this process, it's important that you have an account in the PayU page
+!IMPORTANT => Also we will only working with VISA and MASTERCARD credit/debit cards (I will actualize in the future)
+!IMPORTANT => This form only works for Colombia, for other countries is similar but asks from a couple of additional variables
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+So, let's begin!
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+PayU ask you for a form with the next elements:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- ID
+- fullName
+- Email
+- Phone
+- DNI (national identity card or in Spanish ""Documento nacional de identidad")
+- Address
+- Country
+- City
+- (OPTIONAL)Address 2
+- (OPTIONAL)Phone 2
+- (OPTIONAL)Postal Code
 
-## Learn More
+Credit Card / Debit Card
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- fullName
+- Number
+- Month/Year
+- CVV
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+!IMPORTANT => The form ID it's REALLY important, you can create as you want but that means that everytime it renders has a different ID
+It's important for this case: suppose that you fill that form and it fails for any reason (Example: Invalid credit card number or CVV) that form
+DOESN'T WORK ANYMORE because you already used that ID you must reload the page and re-fill that form with a NEW ID.
+
+So, I give the data, how does it works?
+
+PayU divides in four parts:
+
+Plan - Client - CreditCard / Tokenize - Suscription
+
+1. Plan => The suscription Plan (Price, for how long is valid, etc.)
+2. Client => The data of the client (for minimum, fullName and email)
+3. Credit Card / Tokenize => The data of the credit card and encrypt of the same (Number, CVV, Month/Year)
+4. Suscription => Action of subscribe a Client with a Credit Card to a certain Plan (The combination of the three other steps)
+5. (OPTIONAL)Additional Values => If you want to add more cost to the main plan (It's more used in cases of shipping products)
+6. (OPTIONAL)Invoice => Payment Data
+
+From the CRUD system of PayU, we are only going to see the CREATE part, because for the others we need that you have some ID's that PayU gives to you
+
+But....I do not leave you without information 
+
+See more in [my page](https://www.miciervonegro.com) or clone it (There are instructions in the code)
+
+## How To Use
+
+<!-- Example: -->
+
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+
+```bash
+# Clone this repository
+$ git clone https://github.com/Blackdeerbrand/Task_Manager
+
+# Install dependencies
+$ npm install
+
+# Run the app
+$ npm start
+```
+
+## Acknowledgements
+
+<!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For example: -->
+
+- [Steps to replicate a design with only HTML and CSS](https://devchallenges-blogs.web.app/how-to-replicate-design/)
+- [Node.js](https://nodejs.org/)
+
+## Contact
+
+- Website [www.miciervonegro.com](https://www.miciervonegro.com)
+- GitHub [Blackdeerbrand](https://github.com/Blackdeerbrand)

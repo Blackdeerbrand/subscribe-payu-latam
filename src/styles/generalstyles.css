@@ -1,0 +1,78 @@
+/*BOXES*/
+.mainWrapperGeneral{
+    display: block;
+    width: 80%;
+    padding: 0 10%;
+}
+.mainWrapper{
+    display:grid;
+    width:80%;
+    padding:10% 10%;
+    grid-template-columns:33% 33% 33%;
+    grid-gap: 30px;
+}
+.mainWrapperHero{
+    display: grid;
+    padding:15% 10%;
+    grid-template-columns:50% 50% !important;
+    grid-gap:0;
+    align-self: center;
+}
+.mainWrapperHeroTitle{
+    display:block;
+    width:80%;
+    padding:0% 10%;
+    margin:5% 0;
+    text-align:center;
+}
+.mainWrapperDetails{
+    width:80%;
+    padding:5% 10%;
+    background-color:#fafafa
+}
+/*INPUTS & LABELS*/
+.formInputbox{
+    display:inline-flex; 
+    align-Items:center; 
+    width:100%
+}
+/*------------------------------SUBSCRIPTION PAYMENT AREA --------------------------------------*/
+.indicator{
+    margin: 0 2%;
+    padding: 8px 18px;
+    border: rgb(93, 184, 3);
+    border-radius: 30px;
+    background-color:rgb(93, 184, 3) ;
+    color: white;
+}
+.subscription-payment-box-form{
+    padding:5% !important;
+}
+.subscription-payment-box-info{
+    padding:5% !important;
+    text-align: left;
+}
+.subscription-title{
+    font-family: "Montserrat";
+    font-weight: 600;
+    text-align: left;
+}
+.subscription-subtitle{
+    font-family: "Montserrat";
+    font-weight: 400;
+    text-align: left;
+}
+.subscription-payment-button{
+    background-color: rgb(93, 184, 3) !important;
+    color:white !important;
+    width: 100% !important;
+    padding:2% 0 !important;
+    font-size: 1.2rem !important;
+}
+.subscription-payment-cancel{
+    background-color: rgb(184, 3, 3) !important;
+    color:white !important;
+    width: 90% !important;
+    padding:2% 0 !important;
+    font-size: 1.2rem !important;
+}
