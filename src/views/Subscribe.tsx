@@ -21,7 +21,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import NumberFormat from 'react-number-format';
 import Swal from 'sweetalert2'
 import Logo from '../assets/Logo.png'
-import { useLocation, useHistory } from 'react-router'
 export{}
 
 
@@ -201,10 +200,10 @@ export default function SubscribeLATAM(){
 
    const classes = useStyles();
    const publicIp = require('public-ip');
-   let {register, handleSubmit,  formState: { errors }} = useForm({
+   let {register, handleSubmit} = useForm({
       mode: "onChange" // "onChange"
     })
-   let [referenceCode, setreferenceCode] = useState(makeid(20).concat('PlanBasic'))
+   let [referenceCode] = useState(makeid(20).concat('PlanBasic'))
    let [signature, setsignature] = useState('')
    let [countrycode, setcountrycode] = useState({code:"", phone:""})
    let [month, setMonth] = useState('');
@@ -214,9 +213,7 @@ export default function SubscribeLATAM(){
    const [checked, setChecked] = React.useState(false);
    let [cardImage, setCardImage] = useState<JSX.Element>(<div></div>)
    let [errorMessageCard, seterrorMessageCard] = useState<JSX.Element>(<div></div>)
-   let [successPay, setSuccessPay] = useState({success:false, data:signature})
-   let [initialID, setInitialID] = useState('')
-   let [token, setToken] = useState('')
+   let [successPay] = useState({success:false, data:signature})
 
    /*So first step, 
    
@@ -276,12 +273,16 @@ export default function SubscribeLATAM(){
 
    Also in this useEffect we get the IP from where are we working (It will be explained later)
    */
+
+   useEffect(()=>{
+      gettingIP()
+   },[])
+
    useEffect(()=>{
       localStorage.setItem("payment","Vacio")
-      let message: string = APIGeneral.APIkey.concat("~" + APIGeneral.MerchantID + "~" + referenceCode + "~" + 'Value of your plan' + "~" + 'Type of currency')
+      let message: string = APIGeneral.APIkey+"~" + APIGeneral.MerchantID + "~" + referenceCode + "~" + 'Value of your plan' + "~" + 'Type of currency'
       let md5Transform: string = md5(message)
       setsignature(md5Transform)
-      gettingIP()
    },[])
 
    /*ReloadPage with the function reloadPage */
@@ -292,7 +293,7 @@ export default function SubscribeLATAM(){
    /* (WORKING) Regex for separate the numbers of the credit cards and verify that has at least 14 digits  */
    /* Also this determinate the type of card (VISA or MASTERCARD in this case) and show their brand logo in the page */
    const TypeCard = (e) => {
-      let x = new Intl.NumberFormat().format(e)
+      /* let x = new Intl.NumberFormat().format(e) */
       if(regex.test(e)){
          seterrorMessageCard(<div style={{color:"rgb(93, 184, 3)"}}>Este numero es valido </div>)
       }
@@ -309,11 +310,11 @@ export default function SubscribeLATAM(){
       switch (firstCharacter) {
          case "4":
                setCardType('VISA')
-               setCardImage(<img style={{width:"100%"}} src={Visa}/>)
+               setCardImage(<img alt="visa-card" style={{width:"100%"}} src={Visa}/>)
             break;
          case "5":
                setCardType('MASTERCARD')
-               setCardImage(<img style={{width:"100%"}} src={MasterCard}/>)
+               setCardImage(<img alt="master-card" style={{width:"100%"}} src={MasterCard}/>)
             break;
          default:
             setCardImage(<div></div>)
@@ -334,7 +335,7 @@ export default function SubscribeLATAM(){
          localStorage.setItem('bpmpi','')
          /* Prepare the country code based on the last choice make by the user*/
          countries.map((item)=>{
-            if(buyerdata.country == item.label){
+            if(buyerdata.country === item.label){
                setcountrycode({code:item.code, phone:item.phone })
                countrycodedata = item.code
             }else{
@@ -642,7 +643,7 @@ export default function SubscribeLATAM(){
                <Grid container spacing={3} >
                      <Grid item xs={12} sm={12} md={12} lg={6}>
                            <Grid item xs={12} sm={12} md={12} lg={12} style={{textAlignLast:"left"}}>
-                              <img src={Logo} width="200"/>
+                              <img alt="logo" src={Logo} width="200"/>
                            </Grid>
                      </Grid>
                      <Grid item xs={12} sm={12} md={12} lg={6}>
@@ -650,7 +651,7 @@ export default function SubscribeLATAM(){
                            <Grid item xs={12} sm={12} md={12} lg={6} style={{textAlignLast:"right"}}>
                            <div style={{display:"inline-flex"}}>
                               <h6>Powered by</h6>
-                              <img src={PayU} width="200"/>
+                              <img alt="PayULogo" src={PayU} width="200"/>
                            </div>
                            </Grid>
                         </Grid>
@@ -732,8 +733,8 @@ export default function SubscribeLATAM(){
                      <Grid item xs={12} sm={12} md={12} lg={12}>
                         <div style={{width:"100%",display:"inline-flex", alignItems:"center"}}>
                            <h2 className="subscription-title" style={{width:"100%"}}><span className="indicator">2</span>Datos del Pago</h2>
-                           <img style={{width:"5%"}} src={Visa}/>
-                           <img style={{width:"5%"}} src={MasterCard}/>
+                           <img alt="visa-card" style={{width:"5%"}} src={Visa}/>
+                           <img alt="master-card" style={{width:"5%"}} src={MasterCard}/>
                         </div>
                      </Grid>
                      <Grid item xs={12} sm={12} md={12} lg={6}>
@@ -773,11 +774,13 @@ export default function SubscribeLATAM(){
                         >
                            {
                               arrayMonths.map((item)=>{
-                                 
+
                                  if(item < 10){
                                     return(
                                        <MenuItem value={`0${item}`}>{`0${item}`}</MenuItem>
                                     )
+                                 }else{
+                                    return null
                                  }
                               })
                            }
